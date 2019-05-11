@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import TodoItem from "./TodoItem";
 
 function App() {
     const [showAddTodo, setShowAddTodo] = useState(false);
@@ -26,6 +27,12 @@ function App() {
         setShowAddTodo(true);
     }
 
+    function handleDelete(todoId) {
+        let array = [...todos];
+        array.splice(todoId);
+        setTodos(array)
+    }
+
     return (
         <div className="ui container center aligned">
             {showAddTodo ? (
@@ -38,8 +45,8 @@ function App() {
                     </form>
                     {todos.length > 0 ? (
                         <div className="ui list">
-                            {todos.map(todo => (
-                                <div className="item">{todo.text}</div>
+                            {todos.map((todo, index) => (
+                                <TodoItem key={index} id={index} text={todo.text} onDelete={handleDelete}/>
                             ))}
                         </div>
                     ) : null}
