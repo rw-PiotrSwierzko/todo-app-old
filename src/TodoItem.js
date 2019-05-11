@@ -7,8 +7,12 @@ function TodoItem(props) {
         setHover(!hover);
     }
 
-    function handleClick() {
+    function handleDeleteClick() {
         props.onDelete(props.id)
+    }
+
+    function handleEditClick() {
+        props.onEdit(props.id)
     }
 
     return (
@@ -16,9 +20,10 @@ function TodoItem(props) {
             className="item"
             onMouseEnter={handleHover}
             onMouseLeave={handleHover}
+            onClick={handleEditClick}
         >
             {props.text}
-            {hover ? <i className="trash icon" onClick={handleClick}/> : null}
+            {hover ? <i className="trash icon" onClick={handleDeleteClick}/> : null}
         </div>
     );
 }
