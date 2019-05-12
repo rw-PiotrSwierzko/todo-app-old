@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
+import {Store} from "./context";
 
 function TodoItem(props) {
     const [hover, setHover] = useState(false);
+
+    const {dispatch} = useContext(Store);
 
     function handleHover() {
         setHover(!hover);
     }
 
     function handleDeleteClick() {
-        props.onDelete(props.id)
+        dispatch({type: "DELETE_TODO", payload: props.id})
     }
 
     function handleEditClick() {
@@ -16,13 +19,8 @@ function TodoItem(props) {
     }
 
     return (
-        <div
-            className="item"
-            onMouseEnter={handleHover}
-            onMouseLeave={handleHover}
-            onClick={handleEditClick}
-        >
-            {props.text}
+        <div className="item" onMouseEnter={handleHover} onMouseLeave={handleHover}>
+            <div onClick={handleEditClick}>{props.text}</div>
             {hover ? <i className="trash icon" onClick={handleDeleteClick}/> : null}
         </div>
     );

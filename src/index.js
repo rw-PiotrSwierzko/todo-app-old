@@ -1,5 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import TodoForm from './TodoForm';
+import {TodoProvider} from "./context";
+
+function App() {
+    return (
+        <TodoProvider>
+            <TodoForm/>
+        </TodoProvider>
+    );
+}
+
+ReactDOM.render(<App/>, document.getElementById('root'));
