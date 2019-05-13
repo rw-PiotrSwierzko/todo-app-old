@@ -1,7 +1,21 @@
-import React, {useState, useContext} from 'react';
-import TodoItem from "./TodoItem";
+import React, {useContext, useState} from 'react';
+import Todo from "./Todo";
 import uuid from "uuid";
 import {Store} from "./context";
+import FilterLink from "./FilterLink";
+
+const getVisibleTodos = (todos, filter) => {
+    switch (filter) {
+        case  "SHOW_ALL":
+            return todos;
+        case "SHOW_COMPLETED":
+            return todos.filter(t => t.completed);
+        case "SHOW_INCOMPLETED":
+            return todos.filter(t => !t.completed);
+        default:
+            return todos;
+    }
+};
 
 function TodoForm() {
     const [showAddTodo, setShowAddTodo] = useState(false);
@@ -55,10 +69,20 @@ function TodoForm() {
                             <button className="ui button" type="submit">{editing ? "Save" : "Add"}</button>
                         </div>
                     </form>
+                    <div className="ui transparent icon input">
+                        <input type="text" placeholder="Search..."/>
+                        <i className="search icon"/>
+                    </div>
+                    <p>
+                        Show:
+                        <FilterLink filter="SHOW_ALL">All</FilterLink>
+                        <FilterLink filter="SHOW_INCOMPLETED">Incomplete</FilterLink>
+                        <FilterLink filter="SHOW_COMPLETED">Completed</FilterLink>
+                    </p>
                     {state.todos.length > 0 ? (
                         <div className="ui list">
-                            {state.todos.map((todo, index) => (
-                                <TodoItem key={index} id={todo.id} text={todo.text} onEdit={handleEdit}/>
+                            {getVisibleTodos(state.todos, state.filter).map((todo, index) => (
+                                <Todo key={index} todo={todo} onTodoClick={handleEdit}/>
                             ))}
                         </div>
                     ) : null}

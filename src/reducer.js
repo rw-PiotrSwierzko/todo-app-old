@@ -6,7 +6,6 @@ export default function reducer(state, action) {
                 todos: [...state.todos, action.payload]
             };
         case "DELETE_TODO": {
-            console.log("DELETE_TODO");
             let todos = [...state.todos];
             const index = todos.findIndex(todo => todo.id === action.payload);
             todos.splice(index, 1);
@@ -16,7 +15,6 @@ export default function reducer(state, action) {
             };
         }
         case "EDIT_TODO": {
-            console.log("EDIT_TODO");
             let todos = [...state.todos];
             const index = todos.findIndex(todo => todo.id === action.payload.id);
             todos[index].text = action.payload.text;
@@ -25,6 +23,20 @@ export default function reducer(state, action) {
                 todos: todos
             };
         }
+        case "TOGGLE_TODO": {
+            let todos = [...state.todos];
+            const index = todos.findIndex(todo => todo.id === action.payload);
+            todos[index].completed = !todos[index].completed;
+            return {
+                ...state,
+                todos: todos
+            };
+        }
+        case "SET_VISIBILITY_FILTER":
+            return {
+                ...state,
+                filter: action.payload
+            };
         default:
             return state;
     }
