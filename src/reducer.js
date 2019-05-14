@@ -37,6 +37,16 @@ export default function reducer(state, action) {
                 ...state,
                 filter: action.payload
             };
+        case "SET_TODO":
+            return {
+                ...state,
+                todo: action.payload
+            };
+        case "SET_EDIT_MODE":
+            return {
+                ...state,
+                editMode: action.payload
+            };
         default:
             return state;
     }

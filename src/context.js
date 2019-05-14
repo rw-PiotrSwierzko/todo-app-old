@@ -1,7 +1,14 @@
 import React, {useReducer} from "react";
 import reducer from "./reducer";
 
-const initialState = {todos: []};
+const initialState = {
+    todos: [],
+    todo: {
+        id: '',
+        text: '',
+        completed: false
+    }
+};
 const Store = React.createContext(initialState);
 
 function TodoProvider(props) {
