@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import FilterLink from "./FilterLink";
 import AddTodo from "./AddTodo";
 import VisibleTodoList from "./VisibleTodoList";
-
+import Filter from "./Filter";
+import SearchBar from "./SearchBar";
 
 function TodoApp() {
     const [showAddTodo, setShowAddTodo] = useState(false);
@@ -12,17 +12,9 @@ function TodoApp() {
             {showAddTodo ? (
                 <div>
                     <AddTodo/>
-                    <div className="ui transparent icon input">
-                        <input type="text" placeholder="Search..."/>
-                        <i className="search icon"/>
-                    </div>
-                    <p>
-                        Show:
-                        <FilterLink filter="SHOW_ALL">All</FilterLink>
-                        <FilterLink filter="SHOW_INCOMPLETED">Incomplete</FilterLink>
-                        <FilterLink filter="SHOW_COMPLETED">Completed</FilterLink>
-                    </p>
+                    <SearchBar/>
                     <VisibleTodoList/>
+                    <Filter/>
                 </div>
             ) : (
                 <div className="ui container">

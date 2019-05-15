@@ -4,14 +4,18 @@ import {Store} from "./context";
 function Todo({id, text, completed, onTodoClick}) {
     const [hover, setHover] = useState(false);
 
-    const {dispatch} = useContext(Store);
+    const {state, dispatch} = useContext(Store);
 
     function handleHover() {
         setHover(!hover);
     }
 
     function handleDeleteClick() {
-        dispatch({type: "DELETE_TODO", payload: id})
+        dispatch({type: "DELETE_TODO", payload: id});
+        if (state.todo.id) {
+            dispatch({type: "SET_TODO", payload: {id: '', text: '', completed: false}});
+            dispatch({type: "SET_EDIT_MODE", payload: false});
+        }
     }
 
     return (

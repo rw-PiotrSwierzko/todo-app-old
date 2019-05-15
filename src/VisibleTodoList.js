@@ -15,6 +15,12 @@ const getVisibleTodos = (todos, filter) => {
     }
 };
 
+const getFilteredTodos = (todos, searchTerm) => {
+    return todos.filter(todo => {
+        return todo.text.includes(searchTerm)
+    })
+};
+
 function VisibleTodoList() {
     const {state, dispatch} = useContext(Store);
 
@@ -25,8 +31,10 @@ function VisibleTodoList() {
         dispatch({type: "SET_TODO", payload: foundTodo});
     }
 
+    const visibleTodos = getVisibleTodos(state.todos, state.filter);
+
     return state.todos.length > 0 ? (
-        <TodoList todos={getVisibleTodos(state.todos, state.filter)} onTodoClick={onTodoClick}/>
+        <TodoList todos={getFilteredTodos(visibleTodos, state.searchTerm)} onTodoClick={onTodoClick}/>
     ) : null;
 }
 

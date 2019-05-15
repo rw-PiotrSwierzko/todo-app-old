@@ -7,7 +7,8 @@ const initialState = {
         id: '',
         text: '',
         completed: false
-    }
+    },
+    searchTerm: ''
 };
 const Store = React.createContext(initialState);
 

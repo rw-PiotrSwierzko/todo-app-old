@@ -6,18 +6,15 @@ export default function reducer(state, action) {
                 todos: [...state.todos, action.payload]
             };
         case "DELETE_TODO": {
-            let todos = [...state.todos];
-            const index = todos.findIndex(todo => todo.id === action.payload);
-            todos.splice(index, 1);
             return {
                 ...state,
-                todos: todos
+                todos: [...state.todos.filter(todo => todo.id !== action.payload)]
             };
         }
         case "EDIT_TODO": {
             let todos = [...state.todos];
-            const index = todos.findIndex(todo => todo.id === action.payload.id);
-            todos[index].text = action.payload.text;
+            let todo = todos.find(todo => todo.id === action.payload.id);
+            todo.text = action.payload.text;
             return {
                 ...state,
                 todos: todos
@@ -25,8 +22,8 @@ export default function reducer(state, action) {
         }
         case "TOGGLE_TODO": {
             let todos = [...state.todos];
-            const index = todos.findIndex(todo => todo.id === action.payload);
-            todos[index].completed = !todos[index].completed;
+            let todo = todos.find(todo => todo.id === action.payload);
+            todo.completed = !todo.completed;
             return {
                 ...state,
                 todos: todos
@@ -46,6 +43,11 @@ export default function reducer(state, action) {
             return {
                 ...state,
                 editMode: action.payload
+            };
+        case "SET_SEARCH_TERM":
+            return {
+                ...state,
+                searchTerm: action.payload
             };
         default:
             return state;
