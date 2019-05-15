@@ -20,11 +20,15 @@ function Todo({id, text, completed, onTodoClick}) {
 
     return (
         <div className="item" onMouseEnter={handleHover} onMouseLeave={handleHover}>
-            <i className={`circle outline icon ${completed ? "check" : ""}`} onClick={() => {
-                dispatch({type: "TOGGLE_TODO", payload: id})
-            }}/>
-            <div onClick={() => onTodoClick(id)}>{text}</div>
-            {hover ? <i className="trash icon" onClick={handleDeleteClick}/> : null}
+            <div className="middle aligned content ">
+                <i className={`circle outline icon ${completed ? "check teal" : ""}`} onClick={() => {
+                    dispatch({type: "TOGGLE_TODO", payload: id})
+                }}/>
+                <span style={{textDecoration: `${completed ? "line-through" : ""}`}} onClick={() => onTodoClick(id)}>{text}</span>
+                <div className="right floated content">
+                    {hover ? <i className="trash icon" onClick={handleDeleteClick}/> : null}
+                </div>
+            </div>
         </div>
     );
 }

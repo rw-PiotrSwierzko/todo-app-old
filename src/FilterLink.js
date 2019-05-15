@@ -2,9 +2,9 @@ import React, {useContext} from "react";
 import {Store} from "./context";
 
 function FilterLink({filter, children}) {
-    const {dispatch} = useContext(Store);
+    const {state, dispatch} = useContext(Store);
 
-    return <a href="#" onClick={e => {
+    return <a href="#" className={`item ${state.filter === filter ? "active" : ""}`} onClick={e => {
         e.preventDefault();
         dispatch({
             type: "SET_VISIBILITY_FILTER",

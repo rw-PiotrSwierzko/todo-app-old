@@ -32,7 +32,7 @@ function AddTodo() {
     return <form className="ui form" onSubmit={handleSubmit}>
         <div className="ui action input">
             <input type="text" placeholder="New todo" value={state.todo.text} onChange={handleChange}/>
-            <button className="ui button" type="submit">{state.editMode ? "Save" : "Add"}</button>
+            <button className="ui teal button" type="submit">{state.editMode ? "Save" : "Add"}</button>
         </div>
     </form>
 }

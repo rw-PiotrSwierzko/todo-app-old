@@ -8,13 +8,32 @@ function TodoApp() {
     const [showAddTodo, setShowAddTodo] = useState(false);
 
     return (
-        <div className="ui container center aligned">
+        <div>
             {showAddTodo ? (
                 <div>
-                    <AddTodo/>
-                    <SearchBar/>
-                    <VisibleTodoList/>
-                    <Filter/>
+                    <div className="ui fixed inverted borderless massive menu">
+                        <div className="ui text container">
+                            <div className="header item">
+                                Todo App
+                            </div>
+                            <div className="right menu">
+                                <div className="item">
+                                    <SearchBar/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style={{paddingTop: "5em"}} className="ui  main  grid container">
+                        <div className="row">
+                            <div className="four wide column">
+                                <Filter/>
+                            </div>
+                            <div className="six wide column">
+                                <AddTodo/>
+                                <VisibleTodoList/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             ) : (
                 <div className="ui container">
