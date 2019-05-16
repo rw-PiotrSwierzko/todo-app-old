@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import uuid from "uuid";
-import {Store} from "./context";
+import {Store} from "../context";
 
 function AddTodo() {
     const {state, dispatch} = useContext(Store);
@@ -30,7 +30,7 @@ function AddTodo() {
     }
 
     return <form className="ui form" onSubmit={handleSubmit}>
-        <div className="ui action input">
+        <div className="ui large action input">
             <input type="text" placeholder="New todo" value={state.todo.text} onChange={handleChange}/>
             <button className="ui teal button" type="submit">{state.editMode ? "Save" : "Add"}</button>
         </div>

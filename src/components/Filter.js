@@ -1,5 +1,5 @@
 import React from "react";
-import FilterLink from "./FilterLink";
+import FilterLink from "../containers/FilterLink";
 
 function Filter() {
     return <div className="ui secondary vertical pointing menu">

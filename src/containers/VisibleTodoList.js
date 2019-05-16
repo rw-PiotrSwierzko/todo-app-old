@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
-import {Store} from "./context";
-import TodoList from "./TodoList";
+import {Store} from "../context";
+import TodoList from "../components/TodoList";
 
 const getVisibleTodos = (todos, filter) => {
     switch (filter) {
@@ -22,19 +22,12 @@ const getFilteredTodos = (todos, searchTerm) => {
 };
 
 function VisibleTodoList() {
-    const {state, dispatch} = useContext(Store);
-
-    function onTodoClick(todoId) {
-        const index = state.todos.findIndex(todo => todo.id === todoId);
-        const foundTodo = {...state.todos[index]};
-        dispatch({type: "SET_EDIT_MODE", payload: true});
-        dispatch({type: "SET_TODO", payload: foundTodo});
-    }
+    const {state} = useContext(Store);
 
     const visibleTodos = getVisibleTodos(state.todos, state.filter);
 
     return state.todos.length > 0 ? (
-        <TodoList todos={getFilteredTodos(visibleTodos, state.searchTerm)} onTodoClick={onTodoClick}/>
+        <TodoList todos={getFilteredTodos(visibleTodos, state.searchTerm)}/>
     ) : null;
 }
 

@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Store} from "./context";
+import {Store} from "../context";
 
 function SearchBar() {
     const {state, dispatch} = useContext(Store);

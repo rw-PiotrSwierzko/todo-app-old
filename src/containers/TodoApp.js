@@ -1,15 +1,18 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import AddTodo from "./AddTodo";
 import VisibleTodoList from "./VisibleTodoList";
-import Filter from "./Filter";
+import Filter from "../components/Filter";
 import SearchBar from "./SearchBar";
+import NoTodo from "../components/NoTodo";
+import {Store} from "../context";
 
 function TodoApp() {
     const [showAddTodo, setShowAddTodo] = useState(false);
+    const {state} = useContext(Store);
 
     return (
-        <div>
-            {showAddTodo ? (
+        <div className="h-100">
+            {showAddTodo || state.todos.length > 0 ? (
                 <div>
                     <div className="ui fixed inverted borderless massive menu">
                         <div className="ui text container">
@@ -23,25 +26,21 @@ function TodoApp() {
                             </div>
                         </div>
                     </div>
-                    <div style={{paddingTop: "5em"}} className="ui  main  grid container">
+                    <div style={{paddingTop: "5em"}} className="ui four column centered grid">
                         <div className="row">
-                            <div className="four wide column">
+                            <div className="column">
                                 <Filter/>
                             </div>
-                            <div className="six wide column">
+                            <div className="column">
                                 <AddTodo/>
                                 <VisibleTodoList/>
                             </div>
+                            <div className="column"/>
                         </div>
                     </div>
                 </div>
             ) : (
-                <div className="ui container">
-                    <h2 className="ui header">No todo yet</h2>
-                    <div className="sub header">Add todo to get started</div>
-                    <button className="ui inverted primary button" onClick={() => setShowAddTodo(true)}>New todo
-                    </button>
-                </div>
+                <NoTodo onButtonClick={() => setShowAddTodo(true)}/>
             )}
         </div>
     );
