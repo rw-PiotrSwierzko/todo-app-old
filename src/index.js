@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import TodoApp from './containers/TodoApp';
-import {TodoProvider} from "./context";
+import {TodoProvider} from "./store/context";
 
 function App() {
     return (

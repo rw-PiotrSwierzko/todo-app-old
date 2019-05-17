@@ -1,5 +1,5 @@
 import React, {useContext, useReducer} from "react";
-import reducer from "./reducer";
+import reducer from "../reducers/reducer";
 import {usePersistedContext, usePersistedReducer} from "./localStorage";
 
 const initialState = {

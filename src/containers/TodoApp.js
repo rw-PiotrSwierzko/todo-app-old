@@ -2,9 +2,9 @@ import React, {useContext, useState} from 'react';
 import AddTodo from "./AddTodo";
 import VisibleTodoList from "./VisibleTodoList";
 import Filter from "../components/Filter";
-import SearchBar from "./SearchBar";
 import NoTodo from "../components/NoTodo";
-import {Store} from "../context";
+import {Store} from "../store/context";
+import NavBar from "../components/NavBar";
 
 function TodoApp() {
     const [showAddTodo, setShowAddTodo] = useState(false);
@@ -14,18 +14,7 @@ function TodoApp() {
         <div className="h-100">
             {showAddTodo || state.todos.length > 0 ? (
                 <div>
-                    <div className="ui fixed inverted borderless massive menu">
-                        <div className="ui text container">
-                            <div className="header item">
-                                Todo App
-                            </div>
-                            <div className="right menu">
-                                <div className="item">
-                                    <SearchBar/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <NavBar/>
                     <div style={{paddingTop: "5em"}} className="ui four column centered grid">
                         <div className="row">
                             <div className="column">

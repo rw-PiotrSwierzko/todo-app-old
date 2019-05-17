@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import uuid from "uuid";
-import {Store} from "../context";
+import {Store} from "../store/context";
+import {addTodo, editTodo, setEditMode, setTodo} from "../actions/actions";
 
 function AddTodo() {
     const {state, dispatch} = useContext(Store);
@@ -11,22 +12,22 @@ function AddTodo() {
             return;
         }
         if (state.editMode) {
-            dispatch({type: "EDIT_TODO", payload: {id: state.todo.id, text: state.todo.text}});
-            dispatch({type: "SET_EDIT_MODE", payload: false});
+            dispatch(editTodo({id: state.todo.id, text: state.todo.text}));
+            dispatch(setEditMode(false));
         } else {
             const newTodo = {
                 id: uuid.v4(),
                 text: state.todo.text,
                 completed: false
             };
-            dispatch({type: "ADD_TODO", payload: newTodo})
+            dispatch(addTodo(newTodo))
         }
-        dispatch({type: "SET_TODO", payload: {id: '', text: '', completed: false}})
+        dispatch(setTodo({id: '', text: '', completed: false}));
     }
 
     function handleChange(e) {
         const text = e.target.value;
-        dispatch({type: "SET_TODO", payload: {...state.todo, text}});
+        dispatch(setTodo({...state.todo, text}));
     }
 
     return <form className="ui form" onSubmit={handleSubmit}>

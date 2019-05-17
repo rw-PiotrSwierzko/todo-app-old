@@ -1,32 +1,34 @@
 import React, {useContext} from 'react';
-import {Store} from "../context";
+import {Store} from "../store/context";
 
 import styles from './Todo.module.css';
+import {deleteTodo, setEditMode, setTodo, toggleTodo} from "../actions/actions";
 
 function Todo({id, text, completed}) {
     const {state, dispatch} = useContext(Store);
 
     function onDeleteClick(todoId) {
-        dispatch({type: "DELETE_TODO", payload: todoId});
+        dispatch(deleteTodo(todoId));
         if (state.todo.id) {
-            dispatch({type: "SET_TODO", payload: {id: '', text: '', completed: false}});
-            dispatch({type: "SET_EDIT_MODE", payload: false});
+            dispatch(setTodo({id: '', text: '', completed: false}));
+            dispatch(setEditMode(false));
         }
     }
 
     function onEditClick(todoId) {
         const foundTodo = state.todos.find(todo => todo.id === todoId);
-        dispatch({type: "SET_TODO", payload: foundTodo});
-        dispatch({type: "SET_EDIT_MODE", payload: true});
+        dispatch(setTodo(foundTodo));
+        dispatch(setEditMode(true));
     }
 
-    function onTodoClick() {
-        dispatch({type: "TOGGLE_TODO", payload: id})
+    function onTodoClick(todoId) {
+        dispatch(toggleTodo(todoId));
     }
 
     return (
         <div className={`${styles.todo} item`}>
-            <i className={`large circle outline icon ${completed ? "check teal" : ""}`} onClick={() => onTodoClick(id)}/>
+            <i className={`large circle outline icon ${completed ? "check teal" : ""}`}
+               onClick={() => onTodoClick(id)}/>
             <span className={`${styles.todoText} item ${completed ? styles.completed : ""}`}
                   onClick={() => onTodoClick(id)}>{text}</span>
             <div className="right floated content">
